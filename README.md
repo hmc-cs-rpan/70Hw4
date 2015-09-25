@@ -12,7 +12,7 @@ Before you begin, read the “Constructors, Destructors, and Assignment” hando
 There are 10 issues to complete for this assignment:
 
 1. Meet `doxygen`
-1. Written Component
+1. Understanding Memory Errors
 1. Add `make clean`
 1. Add a Movie constructor
 1. Add a Sprite constructor
