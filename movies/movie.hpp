@@ -28,6 +28,21 @@ public:
     static const size_t WIDTH = 80;
     static const size_t HEIGHT = 40;
     
+
+    /**
+     * \brief Default constructor of Movie class
+     * \pre none
+     * \post 
+     */
+    Movie();
+
+    /**
+     * \brief Default constructor of Movie class
+     * \pre none
+     * \post Doesn't allow movie to be copied
+     */
+    Movie(Movie& copy) = delete;
+
     /**
      * \brief Creates the current display showing the sprite
      * \post The current display contents are up to date and
@@ -57,7 +72,7 @@ public:
 private:
 
     // The sprite to display in this movie.
-    Sprite mySprite_;
+    Sprite mySprite_ = new Sprite();
     
     // The characters to display on the screen.
     char movieArray_[WIDTH*HEIGHT];

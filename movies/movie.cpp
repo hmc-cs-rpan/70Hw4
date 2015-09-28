@@ -15,6 +15,11 @@
 
 using namespace std;
 
+Movie::Movie()
+{
+    cerr << "Movie() constructor called" << endl;
+}
+
 void Movie::updateContents() 
 {
     // Clears the character array by writing a space to each element

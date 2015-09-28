@@ -12,6 +12,30 @@
 
 using namespace std;
 
+Sprite::Sprite(string fname, 
+               size_t x, 
+               size_t y, 
+               bool scroll): xvalue_(x), 
+                             yvalue_(y), 
+                             shouldScroll_(scroll)
+             {
+                ifstream inputFile{fname};
+    
+                // Reads in characters from the text file, 
+                // copies them into the character array.
+                char ch;
+                for (size_t i = 0; i < Sprite::WIDTH * Sprite::HEIGHT; ++i)
+                {
+                    ch = inputFile.get();
+                    if (inputFile.good())
+                    {
+                        spriteArray_[i] = ch;        // Populates spriteArray_
+                    }
+                }
+                inputFile.close();
+                cerr <<  "Parameterized sprite constructor called" << endl;
+             }
+
 void Sprite::loadImage(const string& fname) 
 {
     ifstream inputFile{fname};

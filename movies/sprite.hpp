@@ -31,6 +31,13 @@ public:
     static const size_t HEIGHT = 10;
 
     /**
+     * \brief Constructor for the Sprite class
+     * \pre
+     * \post Creates a Sprite with all the private variables instantiated
+     */
+    Sprite(std::string fname, size_t x, size_t y, bool scroll);
+
+    /**
      * \brief Modifies the location of the sprite by adding 1 to xvalue_
      * if shouldScroll_ is true
      * 
@@ -62,6 +69,19 @@ public:
      */
     char getCharAt(size_t row, size_t col);
 
+
+
+private:
+    // Current location of the sprite on the screen in (x, y) form.
+    size_t xvalue_;
+    size_t yvalue_;
+
+    // Characters to display on the screen for this sprite
+    char spriteArray_[WIDTH*HEIGHT];
+
+    // Boolean that tells whether the sprite is moving.
+    bool shouldScroll_;
+    
     /**
      * \brief Modifer function to change the sprite's location.
      * \post Sprite's location changes to user-specified location.
@@ -75,18 +95,6 @@ public:
      * \return none
      */
      void setScrolling(bool flag);
-
-private:
-    // Current location of the sprite on the screen in (x, y) form.
-    size_t xvalue_;
-    size_t yvalue_;
-
-    // Characters to display on the screen for this sprite
-    char spriteArray_[WIDTH*HEIGHT];
-
-    // Boolean that tells whether the sprite is moving.
-    bool shouldScroll_;
-
 };
 
 #endif // ifndef SPRITE_HPP_INCLUDED
