@@ -72,13 +72,15 @@ Code sample `bad8.cpp` ...
 
 Output for Step 4: Add Movie Constructor
 ```
-(Replace with your output)
+Movie() constructor called
 ```
 
 
 Output for Step 5: Add a Sprite Constructor
 ```
-(Replace with your output)
+Parameterized sprite constructor called
+Movie() constructor called
+
 ```
 
 Output for Step 6: Allow Multiple Sprites in a Movie

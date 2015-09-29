@@ -15,8 +15,9 @@
 
 using namespace std;
 
-Movie::Movie()
+Movie::Movie(size_t maxSprites): maxSprites_(maxSprites), numSprites_(0)
 {
+    Sprite * mySprites_[maxSprites];
     cerr << "Movie() constructor called" << endl;
 }
 
@@ -28,32 +29,38 @@ void Movie::updateContents()
         movieArray_[i] = ' ';
     }
     
-    // Updates the sprite's location if shouldScroll_ is true
-    mySprite_.update();
-
-    // Loops through all of the characters in the sprite and copies them to 
-    // the right spot in the movie's character array.
-
-    size_t mySpriteX = mySprite_.getXLocation();
-    size_t mySpriteY = mySprite_.getYLocation();
-
-    for(size_t row = 0; row < Sprite::HEIGHT; ++row)
+    for(size_t i = 0; i < numSprites_; ++i)
     {
-        for(size_t col = 0; col < Sprite::WIDTH; ++col)
+        Sprite currSprite = *mySprites_[i];
+        // Updates the sprite's location if shouldScroll_ is true
+        currSprite.update();
+
+        // Loops through all of the characters in the sprite and copies them to 
+        // the right spot in the movie's character array.
+
+        size_t currSpriteX = currSprite.getXLocation();
+        size_t currSpriteY = currSprite.getYLocation();
+
+        for(size_t row = 0; row < Sprite::HEIGHT; ++row)
         {
-            char ch = mySprite_.getCharAt(row, col);
-            
-            // movieRow * Movie::WIDTH returns the starting index of a given row
-            // in movieArray_. We find the correct index by adding movieCol.
-            // mod Movie::WIDTH accounts for xvalues greater than the screen
-            // width and allows the sprite to wrap around.
+            for(size_t col = 0; col < Sprite::WIDTH; ++col)
+            {
+                char ch = currSprite.getCharAt(row, col);
+                
+                // movieRow * Movie::WIDTH returns the starting index of a given row
+                // in movieArray_. We find the correct index by adding movieCol.
+                // mod Movie::WIDTH accounts for xvalues greater than the screen
+                // width and allows the sprite to wrap around.
+                if(ch != ' ')
+                {
+                    size_t movieRow = currSpriteY + row;
+                    size_t movieCol = (currSpriteX + col) % Movie::WIDTH;
 
-            size_t movieRow = mySpriteY + row;
-            size_t movieCol = (mySpriteX + col) % Movie::WIDTH;
+                    size_t movieIndex =  movieRow * Movie::WIDTH + movieCol;
 
-            size_t movieIndex =  movieRow * Movie::WIDTH + movieCol;
-
-            movieArray_[movieIndex] = ch;
+                    movieArray_[movieIndex] = ch;
+                }
+            }
         }
     }
 }
@@ -134,7 +141,30 @@ void Movie::display()
 
 }
 
-void Movie::addSprite(Sprite& newSprite)
+void Movie::addSprite(string filename, size_t x, size_t y, bool scroll)
 {
-    Movie::mySprite_ = newSprite;
+    Sprite * toAdd = new Sprite(filename, x, y, scroll);
+    if(numSprites_<maxSprites_)
+    {
+        mySprites_[numSprites_] = toAdd;
+    }
+    else
+    {
+        Sprite * bigArray[2*maxSprites_];
+        for(size_t i = 0; i < maxSprites_; ++i)
+        {
+            bigArray[i] = mySprites_[i];
+        }
+        bigArray[maxSprites_] = toAdd;
+        maxSprites_ *= 2;
+        mySprites_ = bigArray;
+    }
+    numSprites_ += 1;
 }
+
+Movie::~Movie()
+{
+    delete [] mySprites_;
+}
+
+

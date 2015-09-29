@@ -37,6 +37,8 @@ public:
      */
     Sprite(std::string fname, size_t x, size_t y, bool scroll);
 
+    Sprite();
+
     /**
      * \brief Modifies the location of the sprite by adding 1 to xvalue_
      * if shouldScroll_ is true
@@ -55,19 +57,19 @@ public:
      * \brief Accessor function to the sprite's x location.
      * \returns Returns a size_t containing the sprite's x location.
      */
-    size_t getXLocation();
+    size_t getXLocation() const;
 
     /**
      * \brief Accessor function to the sprite's y location.
      * \return Returns a size_t containing the sprite's y location.
      */
-    size_t getYLocation();
+    size_t getYLocation() const;
 
     /**
      * \brief Accessor function to the sprite's character array.
      * \return Returns the character at a specified row and column.
      */
-    char getCharAt(size_t row, size_t col);
+    char getCharAt(size_t row, size_t col) const;
 
 
 

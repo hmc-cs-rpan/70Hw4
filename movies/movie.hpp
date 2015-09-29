@@ -34,7 +34,7 @@ public:
      * \pre none
      * \post 
      */
-    Movie();
+    Movie(size_t maxSprites);
 
     /**
      * \brief Default constructor of Movie class
@@ -67,15 +67,27 @@ public:
      * \post Stores the sprite in the mySprite_ variable
      * \return none
      */
-    void addSprite(Sprite& newSprite);
+    void addSprite(std::string filename, size_t x, size_t y, bool scroll);
+    
+    ~Movie();
 
 private:
 
     // The sprite to display in this movie.
-    Sprite mySprite_ = new Sprite();
+    Sprite mySprite_;
     
     // The characters to display on the screen.
     char movieArray_[WIDTH*HEIGHT];
+
+    // A pointer to an array of pointers to Sprites
+    Sprite ** mySprites_;
+
+    // Maximum sprites a movie can hold
+    size_t maxSprites_;
+
+    // Current number of sprites in the movie
+    size_t numSprites_;
+
 };
 
 #endif // ifndef MOVIE_HPP_INCLUDED

@@ -12,12 +12,8 @@
 
 using namespace std;
 
-Sprite::Sprite(string fname, 
-               size_t x, 
-               size_t y, 
-               bool scroll): xvalue_(x), 
-                             yvalue_(y), 
-                             shouldScroll_(scroll)
+Sprite::Sprite(string fname, size_t x, size_t y, bool scroll): 
+               xvalue_(x), yvalue_(y), shouldScroll_(scroll)
              {
                 ifstream inputFile{fname};
     
@@ -35,6 +31,11 @@ Sprite::Sprite(string fname,
                 inputFile.close();
                 cerr <<  "Parameterized sprite constructor called" << endl;
              }
+
+Sprite::Sprite()
+{
+    // Nothing to do here
+}
 
 void Sprite::loadImage(const string& fname) 
 {
@@ -63,17 +64,17 @@ void Sprite::update()
     }
 }
 
-size_t Sprite::getXLocation()
+size_t Sprite::getXLocation() const
 {
     return xvalue_;
 }
 
-size_t Sprite::getYLocation()
+size_t Sprite::getYLocation() const
 {
     return yvalue_;
 }
 
-char Sprite::getCharAt(size_t row, size_t col)
+char Sprite::getCharAt(size_t row, size_t col) const
 {
     size_t index = row * Sprite::WIDTH + col;
     return spriteArray_[index];
