@@ -18,7 +18,7 @@ using namespace std;
 Movie::Movie(size_t maxSprites): maxSprites_(maxSprites), numSprites_(0)
 {
     // mySprites_ is a pointer to an array of pointers.
-    Sprite ** mySprites_ = new Sprite*[maxSprites_];
+    Sprite* * mySprites_ = new Sprite* [maxSprites_];
     cerr << "Movie() constructor called" << endl;
 }
 
@@ -169,16 +169,16 @@ void Movie::addSprite(string filename, size_t x, size_t y, bool scroll)
         maxSprites_ *= 2;
         mySprites_ = bigArray;
     }
-    
+
     numSprites_ += 1;
 }
 
 Movie::~Movie()
 {
-    // for(size_t i = 0; i < numSprites_; ++i)
-    // {
-    //     delete *mySprites_[i];
-    // }
+    for(size_t i = 0; i < numSprites_; ++i)
+    {
+        delete mySprites_[i];
+    }
     delete [] mySprites_;
 }
 
