@@ -17,7 +17,8 @@ using namespace std;
 
 Movie::Movie(size_t maxSprites): maxSprites_(maxSprites), numSprites_(0)
 {
-    Sprite ** mySprites_ = new Sprite*[maxSprites];
+    // mySprites_ is a pointer to an array of pointers.
+    Sprite ** mySprites_ = new Sprite*[maxSprites_];
     cerr << "Movie() constructor called" << endl;
 }
 
@@ -32,7 +33,7 @@ void Movie::updateContents()
     for(size_t i = 0; i < numSprites_; ++i)
     {
         Sprite currSprite = *mySprites_[i];
-        // Updates the sprite's location if shouldScroll_ is true
+        // Updates currSprite's location if shouldScroll_ is true
         currSprite.update();
 
         // Loops through all of the characters in the sprite and copies them to 
@@ -51,6 +52,7 @@ void Movie::updateContents()
                 // in movieArray_. We find the correct index by adding movieCol.
                 // mod Movie::WIDTH accounts for xvalues greater than the screen
                 // width and allows the sprite to wrap around.
+                // If it's a space, don't copy the character.
                 if(ch != ' ')
                 {
                     size_t movieRow = currSpriteY + row;
@@ -143,27 +145,40 @@ void Movie::display()
 
 void Movie::addSprite(string filename, size_t x, size_t y, bool scroll)
 {
+    // Creates a new sprite in the heap
     Sprite * toAdd = new Sprite(filename, x, y, scroll);
+
     if(numSprites_ < maxSprites_)
     {
         mySprites_[numSprites_] = toAdd;
     }
+
+    // If the array isn't big enough, doubles the size of mySprites_
     else
-    {
-        Sprite * bigArray[2*maxSprites_];
+    {   
+        Sprite ** bigArray = new Sprite*[2*maxSprites_];
+
+        // Copy the elements of mySprites_ into the bigger array
         for(size_t i = 0; i < maxSprites_; ++i)
         {
             bigArray[i] = mySprites_[i];
         }
+
+        // Adds the last sprite into bigArray
         bigArray[maxSprites_] = toAdd;
         maxSprites_ *= 2;
         mySprites_ = bigArray;
     }
+    
     numSprites_ += 1;
 }
 
 Movie::~Movie()
 {
+    // for(size_t i = 0; i < numSprites_; ++i)
+    // {
+    //     delete *mySprites_[i];
+    // }
     delete [] mySprites_;
 }
 

@@ -18,10 +18,11 @@ using namespace std;
 void makeOurMovie() 
 {
     Movie myMovie(2);
+
     myMovie.addSprite("img/mystery1.txt", 20, 10, true);
     myMovie.addSprite("img/mystery1.txt", 20, 30, true);
 
-    //myMovie.play();
+    myMovie.play();
 
 }
 

@@ -30,9 +30,10 @@ public:
     
 
     /**
-     * \brief Default constructor of Movie class
-     * \pre none
-     * \post 
+     * \brief constructor of the Movie class
+     * \pre maxSprites is a positive integer
+     * \post creates a movie with a sprite array of
+     * size maxSprites.  Sets numSprites_ to 0.
      */
     Movie(size_t maxSprites);
 
@@ -64,7 +65,9 @@ public:
 
     /**
      * \brief Adds a sprite to our movie
-     * \post Stores the sprite in the mySprite_ variable
+     * \pre filename is a string with an image of a sprite.
+     * requires the same fields as the sprite constructor.
+     * \post adds the sprite's pointer to the array mySprites_
      * \return none
      */
     void addSprite(std::string filename, size_t x, size_t y, bool scroll);
