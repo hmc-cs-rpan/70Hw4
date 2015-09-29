@@ -18,7 +18,7 @@ using namespace std;
 Movie::Movie(size_t maxSprites): maxSprites_(maxSprites), numSprites_(0)
 {
     // mySprites_ is a pointer to an array of pointers.
-    Sprite* * mySprites_ = new Sprite* [maxSprites_];
+    mySprites_ = new Sprite* [maxSprites_];
     cerr << "Movie() constructor called" << endl;
 }
 
@@ -32,7 +32,7 @@ void Movie::updateContents()
     
     for(size_t i = 0; i < numSprites_; ++i)
     {
-        Sprite currSprite = *mySprites_[i];
+        Sprite& currSprite = *mySprites_[i];
         // Updates currSprite's location if shouldScroll_ is true
         currSprite.update();
 

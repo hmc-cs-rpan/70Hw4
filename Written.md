@@ -40,6 +40,8 @@ Movie() constructor called
 
 Output for Step 6: Allow Multiple Sprites in a Movie
 ```
-(Replace with your output)
+Movie() constructor called
+Parameterized sprite constructor called
+Parameterized sprite constructor called
 ```
 

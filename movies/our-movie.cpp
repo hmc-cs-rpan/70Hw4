@@ -17,7 +17,7 @@ using namespace std;
 // Sprite should move across the screen until the user presses "q"
 void makeOurMovie() 
 {
-    Movie myMovie(2);
+    Movie myMovie(3);
 
     myMovie.addSprite("img/mystery1.txt", 20, 10, true);
     myMovie.addSprite("img/mystery1.txt", 20, 30, true);
