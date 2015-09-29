@@ -74,7 +74,7 @@ public:
 private:
 
     // The sprite to display in this movie.
-    Sprite mySprite_;
+    //Sprite mySprite_;
     
     // The characters to display on the screen.
     char movieArray_[WIDTH*HEIGHT];

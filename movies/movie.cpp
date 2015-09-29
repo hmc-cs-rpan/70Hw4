@@ -17,7 +17,7 @@ using namespace std;
 
 Movie::Movie(size_t maxSprites): maxSprites_(maxSprites), numSprites_(0)
 {
-    Sprite * mySprites_[maxSprites];
+    Sprite ** mySprites_ = new Sprite*[maxSprites];
     cerr << "Movie() constructor called" << endl;
 }
 
@@ -144,7 +144,7 @@ void Movie::display()
 void Movie::addSprite(string filename, size_t x, size_t y, bool scroll)
 {
     Sprite * toAdd = new Sprite(filename, x, y, scroll);
-    if(numSprites_<maxSprites_)
+    if(numSprites_ < maxSprites_)
     {
         mySprites_[numSprites_] = toAdd;
     }

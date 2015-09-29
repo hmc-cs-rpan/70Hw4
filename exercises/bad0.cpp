@@ -14,8 +14,6 @@ int main()
     for (size_t i = 0; i < NUM_VALUES; ++i) {
         cout << values[i] << endl;
     }
-
     
-
     return 0;
 }
