@@ -26,9 +26,6 @@
  */
 class Sprite {
 public:
-    // Size of the sprite, in characters
-    static const size_t WIDTH = 40;
-    static const size_t HEIGHT = 10;
 
     /**
      * \brief Constructor for the Sprite class
@@ -37,8 +34,9 @@ public:
      */
     Sprite(std::string fname, size_t x, size_t y, bool scroll);
 
-    Sprite();
+    Sprite() = delete;
 
+    Sprite& operator=(const Sprite&);
     /**
      * \brief Modifies the location of the sprite by adding 1 to xvalue_
      * if shouldScroll_ is true
@@ -46,12 +44,6 @@ public:
      * \post The sprite may have moved right.
      */
     void update();
-
-    /**
-     * \brief Reads a text file containing the characters for a sprite.
-     * \post populates the sprite's character array.
-     */
-    void loadImage(const std::string& fname);
 
     /**
      * \brief Accessor function to the sprite's x location.
@@ -66,10 +58,24 @@ public:
     size_t getYLocation() const;
 
     /**
+     * \brief Accessor function to the sprite's width
+     * \return Returns the sprite's width as a size_t
+     */
+    size_t getWidth() const;
+
+    /**
+     * \brief Accessor function to the sprite's height
+     * \return Returns the sprite's height as a size_t
+     */
+    size_t getHeight() const;
+
+    /**
      * \brief Accessor function to the sprite's character array.
      * \return Returns the character at a specified row and column.
      */
     char getCharAt(size_t row, size_t col) const;
+
+    ~Sprite();
 
 
 
@@ -78,8 +84,12 @@ private:
     size_t xvalue_;
     size_t yvalue_;
 
+    // the width and height of the text image
+    size_t width_;
+    size_t height_;
+
     // Characters to display on the screen for this sprite
-    char spriteArray_[WIDTH*HEIGHT];
+    char *spriteArray_;
 
     // Boolean that tells whether the sprite is moving.
     bool shouldScroll_;
@@ -96,7 +106,19 @@ private:
      * \post Changes sprite's scrolling status to specified input
      * \return none
      */
-     void setScrolling(bool flag);
+    void setScrolling(bool flag);
+
+    /**
+     * \brief Reads a text file containing the characters for a sprite.
+     * \post populates the sprite's character array.
+     */
+    void loadImage(std::ifstream& inputFile);
+
+    /**
+     * \brief Extracts dimensions from the first line of the file
+     * \post Updates width_ and height_ accordingly, truncates the file
+     */
+    size_t readDim(std::ifstream& file);
 };
 
 #endif // ifndef SPRITE_HPP_INCLUDED

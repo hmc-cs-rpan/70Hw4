@@ -19,8 +19,8 @@ void makeOurMovie()
 {
     Movie myMovie(3);
 
-    myMovie.addSprite("img/mystery1.txt", 20, 10, true);
-    myMovie.addSprite("img/mystery1.txt", 20, 30, true);
+    myMovie.addSprite("img/background.txt", 20, 10, true);
+    myMovie.addSprite("img/background.txt", 20, 30, true);
 
     myMovie.play();
 

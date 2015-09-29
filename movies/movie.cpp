@@ -42,9 +42,9 @@ void Movie::updateContents()
         size_t currSpriteX = currSprite.getXLocation();
         size_t currSpriteY = currSprite.getYLocation();
 
-        for(size_t row = 0; row < Sprite::HEIGHT; ++row)
+        for(size_t row = 0; row < currSprite.getHeight(); ++row)
         {
-            for(size_t col = 0; col < Sprite::WIDTH; ++col)
+            for(size_t col = 0; col < currSprite.getWidth(); ++col)
             {
                 char ch = currSprite.getCharAt(row, col);
                 

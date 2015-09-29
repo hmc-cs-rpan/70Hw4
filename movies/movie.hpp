@@ -44,6 +44,10 @@ public:
      */
     Movie(Movie& copy) = delete;
 
+    Movie() = delete;
+
+    Movie& operator= (const Movie&);
+
     /**
      * \brief Creates the current display showing the sprite
      * \post The current display contents are up to date and
