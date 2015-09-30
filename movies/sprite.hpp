@@ -89,7 +89,7 @@ private:
     size_t height_;
 
     // Characters to display on the screen for this sprite
-    char *spriteArray_;
+    char* spriteArray_;
 
     // Boolean that tells whether the sprite is moving.
     bool shouldScroll_;

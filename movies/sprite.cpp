@@ -27,6 +27,12 @@ Sprite::Sprite(string fname, size_t x, size_t y, bool scroll):
                 cerr <<  "Parameterized sprite constructor called" << endl;
              }
 
+Sprite::~Sprite()
+{
+    delete [] spriteArray_;
+}
+
+
 void Sprite::loadImage(ifstream& inputFile) 
 {
     // Reads in characters from the ifstream
@@ -64,7 +70,7 @@ size_t Sprite::readDim(ifstream& file)
 
 void Sprite::update() 
 {   
-    if(Sprite::shouldScroll_)
+    if(shouldScroll_)
     {
         xvalue_ +=1;
     }
@@ -107,8 +113,4 @@ void Sprite::setScrolling(bool flag)
     shouldScroll_ = flag;
 }
 
-Sprite::~Sprite()
-{
-    delete [] spriteArray_;
-}
 

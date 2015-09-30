@@ -15,8 +15,9 @@
 
 using namespace std;
 
-Movie::Movie(size_t maxSprites): maxSprites_(maxSprites), numSprites_(0)
+Movie::Movie(size_t maxSprites): maxSprites_(maxSprites)
 {
+    numSprites_ = 0;
     // mySprites_ is a pointer to an array of pointers.
     mySprites_ = new Sprite* [maxSprites_];
     cerr << "Movie() constructor called" << endl;
@@ -29,11 +30,13 @@ void Movie::updateContents()
     {
         movieArray_[i] = ' ';
     }
-    
+
     for(size_t i = 0; i < numSprites_; ++i)
     {
+        cerr << "forloop" << i << numSprites_ << endl;
+
         Sprite& currSprite = *mySprites_[i];
-        // Updates currSprite's location if shouldScroll_ is true
+        //Updates currSprite's location if shouldScroll_ is true
         currSprite.update();
 
         // Loops through all of the characters in the sprite and copies them to 
@@ -44,8 +47,10 @@ void Movie::updateContents()
 
         for(size_t row = 0; row < currSprite.getHeight(); ++row)
         {
+            cerr << "2nd forloop" << i << numSprites_ << endl;
             for(size_t col = 0; col < currSprite.getWidth(); ++col)
             {
+                cerr << "3rd forloop" << i << numSprites_ << endl;
                 char ch = currSprite.getCharAt(row, col);
                 
                 // movieRow * Movie::WIDTH returns the starting index of a given row
@@ -55,12 +60,15 @@ void Movie::updateContents()
                 // If it's a space, don't copy the character.
                 if(ch != ' ')
                 {
-                    size_t movieRow = currSpriteY + row;
-                    size_t movieCol = (currSpriteX + col) % Movie::WIDTH;
+                     size_t movieRow = currSpriteY + row;
+                     size_t movieCol = (currSpriteX + col) % Movie::WIDTH;
 
-                    size_t movieIndex =  movieRow * Movie::WIDTH + movieCol;
+                     size_t movieIndex =  movieRow * Movie::WIDTH + movieCol;
 
-                    movieArray_[movieIndex] = ch;
+                    cerr << "movie index is " << movieIndex << endl;
+                    cerr << ch << endl;
+
+                     movieArray_[movieIndex] = ch;
                 }
             }
         }
@@ -147,6 +155,8 @@ void Movie::addSprite(string filename, size_t x, size_t y, bool scroll)
 {
     // Creates a new sprite in the heap
     Sprite * toAdd = new Sprite(filename, x, y, scroll);
+
+    cerr << "addSprite" << numSprites_ << endl;
 
     if(numSprites_ < maxSprites_)
     {
