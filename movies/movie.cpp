@@ -15,12 +15,23 @@
 
 using namespace std;
 
-Movie::Movie(size_t maxSprites): maxSprites_(maxSprites)
+// A movie starts with 0 sprites
+Movie::Movie(size_t spriteCap):
+             maxSprites_(spriteCap), numSprites_(0)
 {
-    numSprites_ = 0;
     // mySprites_ is a pointer to an array of pointers.
-    mySprites_ = new Sprite* [maxSprites_];
+    mySprites_ = new Sprite * [maxSprites_];
+
     cerr << "Movie() constructor called" << endl;
+}
+
+Movie::~Movie()
+{
+    for(size_t i = 0; i < numSprites_; ++i)
+    {
+        delete mySprites_[i];
+    }
+    delete [] mySprites_;
 }
 
 void Movie::updateContents() 
@@ -35,6 +46,7 @@ void Movie::updateContents()
     {
 
         Sprite& currSprite = *mySprites_[i];
+
         //Updates currSprite's location if shouldScroll_ is true
         currSprite.update();
 
@@ -50,7 +62,7 @@ void Movie::updateContents()
             {
                 char ch = currSprite.getCharAt(row, col);
                 
-                // movieRow * Movie::WIDTH returns the starting index of a given row
+                // movieRow * Movie::WIDTH returns the starting index of a row
                 // in movieArray_. We find the correct index by adding movieCol.
                 // mod Movie::WIDTH accounts for xvalues greater than the screen
                 // width and allows the sprite to wrap around.
@@ -61,9 +73,6 @@ void Movie::updateContents()
                      size_t movieCol = (currSpriteX + col) % Movie::WIDTH;
 
                      size_t movieIndex =  movieRow * Movie::WIDTH + movieCol;
-
-                    // cerr << "movie index is " << movieIndex << endl;
-                    // cerr << ch << endl;
 
                     movieArray_[movieIndex] = ch;
                 }
@@ -108,7 +117,7 @@ void Movie::play()
 
     while (not(finished)) {
         // Copy contents to the screen
-        updateContents(); // Get updated character values from the sprite object
+        updateContents(); // Get updated char values from the sprite objects
         display();        // Copy the movie's characters to the screen's buffer
         refresh();        // Refresh the screen
 
@@ -151,49 +160,47 @@ void Movie::display()
 void Movie::addSprite(string filename, size_t x, size_t y, bool scroll)
 {
     // Creates a new sprite in the heap
-    Sprite * toAdd = new Sprite(filename, x, y, scroll);
+    Sprite * spriteToAdd = new Sprite(filename, x, y, scroll);
 
-    cerr << "addSprite" << numSprites_ << endl;
-
-    if(numSprites_ < maxSprites_)
+    // Checks to see if the bottom of the sprite fits on the screen
+    if(y + (*spriteToAdd).getHeight() <= Movie::HEIGHT)
     {
-        mySprites_[numSprites_] = toAdd;
+        // If there is space in the array to add a sprite
+        if(numSprites_ < maxSprites_)
+        {
+            mySprites_[numSprites_] = spriteToAdd;
+        }
+
+        // If the array isn't big enough, doubles the size of mySprites_
+        else
+        {   
+            Sprite * * bigArray = new Sprite * [2 * maxSprites_];
+
+            // Copy the elements of mySprites_ into the bigger array
+            for(size_t i = 0; i < maxSprites_; ++i)
+            {
+                bigArray[i] = mySprites_[i];
+            }
+
+            // Adds the last sprite into bigArray
+            bigArray[maxSprites_] = spriteToAdd;
+            
+            delete [] mySprites_;
+
+            maxSprites_ *= 2;
+            mySprites_ = bigArray;
+        }
+
+        // Since we added a sprite, increment numSprites_
+        numSprites_ += 1;
     }
 
-    // If the array isn't big enough, doubles the size of mySprites_
     else
-    {   
-        Sprite ** bigArray = new Sprite*[2*maxSprites_];
-
-        // Copy the elements of mySprites_ into the bigger array
-        for(size_t i = 0; i < maxSprites_; ++i)
-        {
-            bigArray[i] = mySprites_[i];
-        }
-
-        // Adds the last sprite into bigArray
-        bigArray[maxSprites_] = toAdd;
-        
-
-        for(size_t i = 0; i < maxSprites_; ++i)
-        {
-            delete mySprites_[i];
-        }
-        maxSprites_ *= 2;
-
-        mySprites_ = bigArray;
-    }
-
-    numSprites_ += 1;
-}
-
-Movie::~Movie()
-{
-    for(size_t i = 0; i < maxSprites_; ++i)
     {
-        delete mySprites_[i];
+        cerr << "sprite doesn't fit on screen" << endl;
+        delete spriteToAdd;
     }
-    delete [] mySprites_;
 }
+
 
 

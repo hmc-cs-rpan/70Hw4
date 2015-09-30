@@ -1,6 +1,7 @@
 /**
  * \file movie.hpp
  * \author Daniel Zhang, Ricky Pan, CS 70 Provided Code
+ * \help from Prof Medero, Brian Cheng, and grutors Eric and Lisa
    =========
    Interface definition for the Movie class, which handles the main screen
    and coordination of an ASCIImation movie.
@@ -17,8 +18,8 @@
  * \brief Holds the contents of an ASCIImation movie
  *
  * \details
- * Stores an array of characters that will be displayed to the screen, and
- * a Sprite that will be added to the screen.
+ * Stores an array of pointers to Sprites that will be displayed to the screen,
+ * the number of sprites, the size of the array, and the character array.
  *
  */
 class Movie {
@@ -37,19 +38,16 @@ public:
      */
     Movie(size_t maxSprites);
 
-    /**
-     * \brief Default constructor of Movie class
-     * \pre none
-     * \post Doesn't allow movie to be copied
-     */
-    Movie(Movie& copy) = delete;
-
     Movie() = delete;
+
+    ~Movie();
+
+    Movie(Movie& copy) = delete;
 
     Movie& operator= (const Movie&);
 
     /**
-     * \brief Creates the current display showing the sprite
+     * \brief Creates the current display showing the sprites
      * \post The current display contents are up to date and
      * ready to display to the screen.
      */
@@ -75,28 +73,20 @@ public:
      * \return none
      */
     void addSprite(std::string filename, size_t x, size_t y, bool scroll);
-    
-    ~Movie();
 
 private:
 
-    
-    // The characters to display on the screen.
-    char movieArray_[WIDTH*HEIGHT];
-
-// A pointer to an array of pointers to Sprites
-    Sprite ** mySprites_;
+    // A pointer to an array of pointers to Sprites
+    Sprite * * mySprites_;
 
     // Maximum sprites a movie can hold
     size_t maxSprites_;
 
     // Current number of sprites in the movie
     size_t numSprites_;
-
-    // The sprite to display in this movie.
-    //Sprite mySprite_;
-
-
+    
+    // The characters to display on the screen.
+    char movieArray_[WIDTH*HEIGHT];
     
 
 };

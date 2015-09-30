@@ -21,7 +21,7 @@
  * with the sprite's current location.
  *
  * \remarks
- *    The implemented code only works for a fixed size sprite.
+ *    The implemented code works for any size sprite.
  *
  */
 class Sprite {
@@ -34,9 +34,13 @@ public:
      */
     Sprite(std::string fname, size_t x, size_t y, bool scroll);
 
+    // Removed the Sprite default constructor and assignment operator
     Sprite() = delete;
 
+    ~Sprite();
+
     Sprite& operator=(const Sprite&);
+    
     /**
      * \brief Modifies the location of the sprite by adding 1 to xvalue_
      * if shouldScroll_ is true
@@ -75,8 +79,6 @@ public:
      */
     char getCharAt(size_t row, size_t col) const;
 
-    ~Sprite();
-
 
 
 private:
@@ -84,12 +86,12 @@ private:
     size_t xvalue_;
     size_t yvalue_;
 
-    // the width and height of the text image
+    // The width and height of the text image
     size_t width_;
     size_t height_;
 
     // Characters to display on the screen for this sprite
-    char* spriteArray_;
+    char * spriteArray_;
 
     // Boolean that tells whether the sprite is moving.
     bool shouldScroll_;
@@ -111,12 +113,14 @@ private:
     /**
      * \brief Reads a text file containing the characters for a sprite.
      * \post populates the sprite's character array.
+     * \remarks Takes an ifstream reference (not a string)
      */
     void loadImage(std::ifstream& inputFile);
 
     /**
      * \brief Extracts dimensions from the first line of the file
      * \post Updates width_ and height_ accordingly, truncates the file
+     * \remarks Takes an ifstream reference (not a string)
      */
     size_t readDim(std::ifstream& file);
 };

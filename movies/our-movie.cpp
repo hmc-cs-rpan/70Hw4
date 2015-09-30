@@ -12,15 +12,20 @@
 
 using namespace std;
 
-// Creates and loads a sprite from our pacman file.
-// Creates a movie and adds the sprite.  Then plays the movie.
-// Sprite should move across the screen until the user presses "q"
+// Creates a movie and adds sprites.  Then plays the movie.
+// Movie should play until the user presses "q"
 void makeOurMovie() 
 {
-    Movie myMovie(3);
+    size_t MAX_SPRITES = 10;
+    Movie myMovie(MAX_SPRITES);
 
-    myMovie.addSprite("img/mystery1.txt", 20, 10, true);
-    myMovie.addSprite("img/mystery1.txt", 20, 30, true);
+    myMovie.addSprite("img/background.txt", 0, 0, false);
+    myMovie.addSprite("img/discoball.txt", 32, 0, false);
+    myMovie.addSprite("img/pacman.txt", 0, 20, true);
+    myMovie.addSprite("img/ymca_y.txt", 30, 20, true);
+    myMovie.addSprite("img/ymca_a.txt", 45, 20, true);
+    myMovie.addSprite("img/ymca_y.txt", 60, 20, true);
+
 
     myMovie.play();
 

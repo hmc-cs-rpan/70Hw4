@@ -23,6 +23,7 @@ Sprite::Sprite(string fname, size_t x, size_t y, bool scroll):
 
                 spriteArray_ = new char[width_*height_];
 
+                // Populates spriteArray_ with loadImage
                 loadImage(inputFile);
                 cerr <<  "Parameterized sprite constructor called" << endl;
              }
@@ -42,7 +43,6 @@ void Sprite::loadImage(ifstream& inputFile)
     for (size_t i = 0; i < width_ * height_; ++i)
     {
         ch = inputFile.get();
-
         if (inputFile.good())
         {
             spriteArray_[i] = ch;        // Populates spriteArray_
@@ -56,7 +56,7 @@ void Sprite::loadImage(ifstream& inputFile)
 size_t Sprite::readDim(ifstream& file)
 {
     // iterates through characters of the file until a new line
-    // turns the string of digits into a size_t
+    // returns the string of digits it encounters as a size_t
     string charHolder = "";
     char ch = file.get();
 
@@ -68,6 +68,7 @@ size_t Sprite::readDim(ifstream& file)
     return atoi(charHolder.c_str());
 }
 
+// if shouldScroll_ is true, the Sprite moves one step to the right
 void Sprite::update() 
 {   
     if(shouldScroll_)
