@@ -33,7 +33,6 @@ void Movie::updateContents()
 
     for(size_t i = 0; i < numSprites_; ++i)
     {
-        cerr << "forloop" << i << numSprites_ << endl;
 
         Sprite& currSprite = *mySprites_[i];
         //Updates currSprite's location if shouldScroll_ is true
@@ -47,10 +46,8 @@ void Movie::updateContents()
 
         for(size_t row = 0; row < currSprite.getHeight(); ++row)
         {
-            cerr << "2nd forloop" << i << numSprites_ << endl;
             for(size_t col = 0; col < currSprite.getWidth(); ++col)
             {
-                cerr << "3rd forloop" << i << numSprites_ << endl;
                 char ch = currSprite.getCharAt(row, col);
                 
                 // movieRow * Movie::WIDTH returns the starting index of a given row
@@ -65,10 +62,10 @@ void Movie::updateContents()
 
                      size_t movieIndex =  movieRow * Movie::WIDTH + movieCol;
 
-                    cerr << "movie index is " << movieIndex << endl;
-                    cerr << ch << endl;
+                    // cerr << "movie index is " << movieIndex << endl;
+                    // cerr << ch << endl;
 
-                     movieArray_[movieIndex] = ch;
+                    movieArray_[movieIndex] = ch;
                 }
             }
         }
@@ -176,7 +173,14 @@ void Movie::addSprite(string filename, size_t x, size_t y, bool scroll)
 
         // Adds the last sprite into bigArray
         bigArray[maxSprites_] = toAdd;
+        
+
+        for(size_t i = 0; i < maxSprites_; ++i)
+        {
+            delete mySprites_[i];
+        }
         maxSprites_ *= 2;
+
         mySprites_ = bigArray;
     }
 
@@ -185,7 +189,7 @@ void Movie::addSprite(string filename, size_t x, size_t y, bool scroll)
 
 Movie::~Movie()
 {
-    for(size_t i = 0; i < numSprites_; ++i)
+    for(size_t i = 0; i < maxSprites_; ++i)
     {
         delete mySprites_[i];
     }

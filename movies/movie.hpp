@@ -80,13 +80,11 @@ public:
 
 private:
 
-    // The sprite to display in this movie.
-    //Sprite mySprite_;
     
     // The characters to display on the screen.
     char movieArray_[WIDTH*HEIGHT];
 
-    // A pointer to an array of pointers to Sprites
+// A pointer to an array of pointers to Sprites
     Sprite ** mySprites_;
 
     // Maximum sprites a movie can hold
@@ -94,6 +92,12 @@ private:
 
     // Current number of sprites in the movie
     size_t numSprites_;
+
+    // The sprite to display in this movie.
+    //Sprite mySprite_;
+
+
+    
 
 };
 
