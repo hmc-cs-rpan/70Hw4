@@ -1,0 +1,7 @@
+clang++ -c -g -std=c++11 -pedantic -Wall -Wextra our-movie.cpp
+clang++ -c -g -std=c++11 -pedantic -Wall -Wextra movie.cpp
+clang++ -c -g -std=c++11 -pedantic -Wall -Wextra sprite.cpp
+clang++ -o our-movie our-movie.o movie.o sprite.o -lncurses
+Making test code...
+clang++ -c -g -std=c++11 -pedantic -Wall -Wextra cs70-movietest.cpp
+clang++ -o cs70-movietest cs70-movietest.o sprite.o movie.o -lncurses

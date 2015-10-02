@@ -1,0 +1,51 @@
+Test 1: OK    		(Run our movie for 3 seconds)
+			Command: ./run-our-movie 
+
+Test 2: OK    		(Run our movie for 3 seconds [+valgrind])
+			Command: ./run-our-movie-valgrind 
+
+Test 3: OK    		(Check over-provisioned movie)
+			Command: ./cs70-movietest over
+
+Test 4: OK    		(Check over-provisioned movie [+valgrind])
+			Command: /usr/bin/valgrind -q --leak-check=full ./cs70-movietest over
+
+Test 5: Failed		(Check under-provisioned movie)
+			Command: ./cs70-movietest under
+- exited with signal 6 [Abort (Assert fail or out of memory?)]
+- output differences (cout output)
+
+Test 6: Failed		(Check under-provisioned movie [+valgrind])
+			Command: /usr/bin/valgrind -q --leak-check=full ./cs70-movietest under
+- output differences (cerr output)
+
+Test 7: OK    		(Check a movie that has to resize its Sprite* array)
+			Command: ./cs70-movietest resize
+
+Test 8: OK    		(Check a movie that has to resize its Sprite* array [+valgrind])
+			Command: /usr/bin/valgrind -q --leak-check=full ./cs70-movietest resize
+
+Test 9: OK    		(Check a sprite that goes past the bottom of a movie)
+			Command: ./cs70-movietest vertical
+
+Test 10: Failed		(Check a sprite that goes past the bottom of a movie [+valgrind])
+			Command: /usr/bin/valgrind -q --leak-check=full ./cs70-movietest vertical
+- output differences (cerr output)
+
+Test 11: OK    		(Check a sprite that uses the new image format)
+			Command: ./cs70-movietest newimageformat
+
+Test 12: OK    		(Check a sprite that uses the new image format [+valgrind])
+			Command: /usr/bin/valgrind -q --leak-check=full ./cs70-movietest newimageformat
+
+Test 13: OK    		(Check a sprite that is bigger than the default)
+			Command: ./cs70-movietest anyimagesize
+
+Test 14: OK    		(Check a sprite that is bigger than the default [+valgrind])
+			Command: /usr/bin/valgrind -q --leak-check=full ./cs70-movietest anyimagesize
+
+Test 15: OK    		(Check a movie with more than one sprite)
+			Command: ./cs70-movietest twoimages
+
+Test 16: OK    		(Check a movie with more than one sprite [+valgrind])
+			Command: /usr/bin/valgrind -q --leak-check=full ./cs70-movietest twoimages
